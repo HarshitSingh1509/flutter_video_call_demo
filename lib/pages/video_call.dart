@@ -21,17 +21,6 @@ class _VideoCallState extends State<VideoCall> {
   final _infoStrings = <String>[];
   bool muted = false;
   RtcEngine _engine;
-
-  @override
-  void dispose() {
-    // clear users
-    _users.clear();
-    // destroy sdk
-    _engine.leaveChannel();
-    _engine.destroy();
-    super.dispose();
-  }
-
   @override
   void initState() {
     super.initState();
@@ -294,3 +283,44 @@ class _VideoCallState extends State<VideoCall> {
     );
   }
 }
+
+
+
+
+
+
+            GoogleMap(
+                      //Map widget from google_maps_flutter package
+                      zoomControlsEnabled: true,
+                      myLocationButtonEnabled: true,
+                      compassEnabled: false,
+                      indoorViewEnabled: true,
+                      mapToolbarEnabled: true,
+                      polylines: ref.read(locationProvider).polyline,
+                      markers: ref
+                          .read(locationProvider)
+                          .markers,
+                      initialCameraPosition: CameraPosition(
+                        target: ref
+                            .watch(locationProvider)
+                            .startLocation,
+                        zoom: initialZoom,
+                      ),
+
+                      mapType: MapType.normal,
+                      onMapCreated: (controller) {
+                        mapController = controller;
+                      },
+                      onCameraMove: (CameraPosition cameraPositiona) {
+                        cameraPosition = cameraPositiona; 
+                      },
+                      
+                    ),
+
+
+
+
+
+
+
+
